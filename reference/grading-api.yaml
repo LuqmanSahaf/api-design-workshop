@@ -6,7 +6,67 @@ info:
   version: '1.0'
 servers:
   - url: 'http://localhost:3000'
-paths: {}
+paths:
+  '/grades/{pupil-id}':
+    get:
+      summary: Get grades for a pupil
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      readOnly: true
+                    subjectName:
+                      type: string
+                    grade:
+                      type: string
+      operationId: get-grades
+      description: ''
+    post:
+      summary: Set grade for a pupil on a subject
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  subjectName:
+                    type: string
+                  grade:
+                    type: string
+      operationId: post-grades
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subjectName:
+                  type: string
+                grade:
+                  type: string
+    parameters:
+      - schema:
+          type: string
+        name: pupil-id
+        in: path
+        required: true
 components:
   schemas:
     User:
